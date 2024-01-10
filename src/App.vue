@@ -2,14 +2,33 @@
 <script>
 
 // IMPORTO LE COMPONTENTI
+import axios from 'axios'
+
 import AppHeader from './components/AppHeader.vue'
 import AppMain from './components/AppMain.vue'
+
+import { store } from './store.js';
 
 export default {
   components: {
     AppHeader,
     AppMain,
-  }
+  },
+  data() {
+    return {
+      store
+    }
+  },
+   methods: {
+    getCardList() {
+      axios.get(store.endpoint).then((response) => {
+        this.store.cardList = response.data.data
+      })
+    }
+  },
+  created() {
+    this.getCardList();
+  },
 }
 </script>
 
