@@ -7,6 +7,7 @@ import axios from 'axios'
 import AppHeader from './components/AppHeader.vue'
 import AppMain from './components/AppMain.vue'
 import AppLoader from './components/AppLoader.vue'
+import AppSearch from './components/AppSearch.vue'
 
 import { store } from './store.js';
 
@@ -15,6 +16,7 @@ export default {
     AppHeader,
     AppMain,
     AppLoader,
+    AppSearch,
   },
   data() {
     return {
@@ -23,8 +25,21 @@ export default {
   },
    methods: {
     getCardList() {
-      axios.get(store.endpoint).then((response) => {
-        this.store.cardList = response.data.data;
+      let url = store.endpoint;
+      if (store.selectArchetype != '') {
+        url += `&archetype=${store.selectArchetype}`
+      }
+      axios.get(url).then(response => {
+        store.loading = true;
+        store.cardList = response.data.data
+        store.loading = false;
+      })
+    },
+     resetSelectArchetype() {
+      store.selectArchetype = '';
+      axios.get(store.endpoint).then(response => {
+        store.loading = true;
+        store.cardList = response.data.data
         store.loading = false;
       })
     }
@@ -41,6 +56,7 @@ export default {
     <AppLoader v-if="store.loading" />
     <div v-else>
       <AppHeader />
+      <AppSearch @filter="getCardList" @reset_select="resetSelectArchetype"/>
       <AppMain />
     </div>
   </div>
