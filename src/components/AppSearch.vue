@@ -1,7 +1,10 @@
 <!-- SEZIONE JS SCRIPT -->
 <script>
+
+// IMPORTO LE COMPONTENTI
 import { store } from "../store";
 import axios from "axios";
+
 export default {
     data() {
         return {
@@ -32,20 +35,26 @@ export default {
     },
 }
 </script>
+
+<!-- SEZIONE HTML -->
 <template lang="">
     <div class="row mt-3">
         <div class="col-12 d-flex justify-content-center">
-            <div class="d-flex gap-3 pb-3">
+            <div class="d-flex gap-2 pb-3">
+                <!-- FORM SELECT -->
                 <select class="form-select form-select-md" v-model="store.selectArchetype">
                     <option selected value="">Seleziona un Archetipo</option>
                     <option v-for="(archetype, index) in archetypeArr" :key="index" :value="archetype">{{ archetype }}</option>
                 </select>
+                <!-- BUTTONS -->
                 <div class="btn btn-md btn-success" @click="$emit('filter')">Cerca</div>
                 <div class="btn btn-md btn-danger" @click="$emit('reset_select')">Ripulisci</div>
             </div>
         </div>
     </div>
 </template>
+
+<!-- SEZIONE STYLE -->
 <style lang="scss" scoped>
 @use '../styles/generals.scss';
 </style>

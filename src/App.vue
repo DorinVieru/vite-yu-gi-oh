@@ -53,10 +53,17 @@ export default {
 <!-- SEZIONE HTML -->
 <template lang="">
   <div>
+    <!-- LOADING PRIMA DEL CARICAMENTO DELLA PAGINA -->
     <AppLoader v-if="store.loading" />
     <div v-else>
+
+      <!-- HEADER -->
       <AppHeader />
+
+      <!-- RICERCA -->
       <AppSearch @filter="getCardList" @reset_select="resetSelectArchetype"/>
+      
+      <!-- MAIN -->
       <AppMain />
     </div>
   </div>
